@@ -1,0 +1,3 @@
+WindowAPI
+Window : 창(interface)
+API : Application Programming Interface
