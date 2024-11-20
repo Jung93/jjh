@@ -5,10 +5,12 @@ public:
 	Line(Vector start, Vector end);
 	~Line();
 
+	Vector& End() { return _end; }
+
 	void Update();
 	void Render(HDC hdc);
 
-private:
+public:
 	Vector _start;
 	Vector _end;
 };

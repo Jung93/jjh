@@ -134,15 +134,47 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 // 
 // message : 
 
-shared_ptr<CircleCollider> myCircle = make_shared<CircleCollider>(Vector(100, 100), 70);
-shared_ptr<BoxCollider> myBox = make_shared<BoxCollider>(Vector(200, 200), Vector(400, 400));
-shared_ptr<Line> myLine = make_shared<Line>(Vector(500, 500), Vector(700, 700));
+
+Vector mousePos;//extern을 사용해서 다른곳에서도 접근 가능
+
+shared_ptr<Program> program = make_shared<Program>();
+
+//shared_ptr<CircleCollider> myCircle = make_shared<CircleCollider>(Vector(100, 100), 70);
+//shared_ptr<BoxCollider> myBox = make_shared<BoxCollider>(Vector(200, 200), Vector(140, 140));
+//shared_ptr<Line> myLine = make_shared<Line>(Vector(500, 500), Vector(700, 700));
 
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+
+    case WM_CREATE://첫 실행 시 들어옴
+    {
+        SetTimer(hWnd, 1, 1, nullptr); // 1ms마다 WM_Timer 메시지 처리한다는 의미
+        break;
+    }
+
+    case WM_TIMER://  특정 시간마다 들어옴
+    {
+        program->Update();
+
+        //myCircle->Update();
+        //myBox->Update();
+        //myLine->Update();
+
+        InvalidateRect(hWnd, nullptr, true);
+        break;
+    }
+
+    case WM_MOUSEMOVE:// 마우스가 움직일 때 마다 처리되는 메시지
+    {
+        mousePos.x = static_cast<float>(LOWORD(lParam));
+        mousePos.y = static_cast<float>(HIWORD(lParam));
+        break;
+    }
+
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -167,19 +199,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
 
-            ////타원
-            //Ellipse(hdc, 0, 0, 100, 100);
-            myCircle->Render(hdc);
+            program->Render(hdc);
 
-            ////사각형
-            //Rectangle(hdc, 0, 0, 100, 100);
-            myBox->Render(hdc);
+            //////타원
+            ////Ellipse(hdc, 0, 0, 100, 100);
+            ////myCircle->Center() = mousePos;
+            //myCircle->Render(hdc);
 
-            ////선
-            //MoveToEx(hdc, 500, 500, nullptr);
-            //LineTo(hdc, 700, 700);
-            myLine->Render(hdc);
+            //////사각형
+            ////Rectangle(hdc, 0, 0, 100, 100);
+            //myBox->Render(hdc);
+            ////선형 보관. 애니메이션을 만드는 기법 중 하나
+            ////myBox->Center() = myBox->Center() + (mousePos - myBox->Center()) * 0.1f;
+            //myBox->Center() = LinearInterpolation(myBox->Center(), mousePos, 0.1f);
 
+            ////myBox->Center() = mousePos;
+            //myBox->Render(hdc);
+
+            //////선
+            ////MoveToEx(hdc, 500, 500, nullptr);
+            ////LineTo(hdc, 700, 700);
+            ////myLine->End() = mousePos;
+            //myLine->Render(hdc);
 
 
             EndPaint(hWnd, &ps);

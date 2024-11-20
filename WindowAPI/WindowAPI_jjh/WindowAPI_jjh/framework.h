@@ -23,10 +23,21 @@
 
 using namespace std;
 
+#include "Types.h"
+
 //Math
 #include "Math/Vector.h"
 
 //Contents
+#include "Contents/Objects/Line.h"
+#include "Contents/Objects/Collider.h"
 #include "Contents/Objects/CircleCollider.h"
 #include "Contents/Objects/BoxCollider.h"
-#include "Contents/Objects/Line.h"
+
+//Scene
+#include "Scenes/Scene.h"
+
+//Program
+#include "Program/Program.h"
+
+extern Vector mousePos;

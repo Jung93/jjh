@@ -132,16 +132,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Contents\Objects\Collider.h" />
+    <ClInclude Include="Scenes\CollisionScene.h" />
     <ClInclude Include="Contents\Objects\BoxCollider.h" />
     <ClInclude Include="Contents\Objects\CircleCollider.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Contents\Objects\Line.h" />
     <ClInclude Include="Math\Vector.h" />
+    <ClInclude Include="Scenes\PaintScene.h" />
+    <ClInclude Include="Program\Program.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="WindowAPI_jjh.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Contents\Objects\Collider.cpp" />
+    <ClCompile Include="Scenes\CollisionScene.cpp" />
     <ClCompile Include="Contents\Objects\BoxCollider.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">framework.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -153,6 +161,9 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">framework.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Contents\Objects\Line.cpp" />
+    <ClCompile Include="Scenes\PaintScene.cpp" />
+    <ClCompile Include="Program\Program.cpp" />
+    <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="WindowAPI_jjh.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">framework.h</PrecompiledHeaderFile>
     </ClCompile>
