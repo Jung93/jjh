@@ -5,6 +5,7 @@
 CircleCollider::CircleCollider(Vector center, float radius)
 	:_radius(radius)
 {
+	_type = Collider::Type::CIRCLE,
 	_center = center;
 	_colors[0] = CreatePen(3, 3, RED);
 	_colors[1] = CreatePen(3, 3, GREEN);
@@ -50,6 +51,36 @@ bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other) const
 bool CircleCollider::IsCollision(shared_ptr<BoxCollider> other) const
 {
 	//과제
+	auto a = other->GetOBB();
 
-	return false;
+	Vector aTob = this->_center - a.position;
+
+	float d = sqrtf(a.length[0] * a.length[0] + a.length[1] * a.length[1]) + this->_radius;
+	if (d < aTob.Length())
+		return false;
+
+	Vector normal_ea1 = a.direction[0].NormalVector();
+	Vector ea1 = a.direction[0];
+	Vector normal_ea2 = a.direction[1].NormalVector();
+	Vector ea2 = a.direction[1];
+
+
+	//normal ea1 기준으로 투영
+	float length = abs(normal_ea1.Dot(aTob));// a To b 길이의 절대값
+	float lengthB = this->_radius;
+	float lengthA = a.length[0];
+	if (length > lengthB + lengthA)
+		return false;
+
+	//normal ea2 기준으로 투영
+	length = abs(normal_ea2.Dot(aTob));// a To b 길이의 절대값
+	lengthB = this->_radius;
+	lengthA = a.length[1];
+	if (length > lengthB + lengthA)
+		return false;
+
+
+	return true;
+
+
 }

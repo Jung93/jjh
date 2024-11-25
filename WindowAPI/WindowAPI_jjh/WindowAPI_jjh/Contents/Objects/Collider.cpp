@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "Collider.h"
+#include "CircleCollider.h"
 
 Collider::Collider()
 {
@@ -9,9 +10,30 @@ Collider::~Collider()
 {
 }
 
-bool Collider::IsCollision(shared_ptr<Collider> collider)
+bool Collider::IsCollision(shared_ptr<Collider> collider) const
 {
-	shared_ptr<CircleCollider> circleCol = dynamic_pointer_cast<CircleCollider>(collider);
+
+	switch (collider->_type)
+	{
+	case Collider::NONE:
+		return false;
+	case Collider::CIRCLE:
+	{
+		shared_ptr<CircleCollider> circle = dynamic_pointer_cast<CircleCollider>(collider);
+		return IsCollision(circle);
+	}
+
+	case Collider::BOX:
+	{
+		shared_ptr<BoxCollider> box = dynamic_pointer_cast<BoxCollider>(collider);
+		return IsCollision(box);
+	}
+	default:
+		break;
+	}
+
+
+	/*shared_ptr<CircleCollider> circleCol = dynamic_pointer_cast<CircleCollider>(collider);
 	CircleCollider* circleCol2 = dynamic_cast<CircleCollider*>(this);
 	BoxCollider* boxCol = dynamic_cast<BoxCollider*>(this);
 
@@ -46,7 +68,8 @@ bool Collider::IsCollision(shared_ptr<Collider> collider)
 
 		return distX * distX + distY * distY < circleCol->Radius() * circleCol->Radius();
 
-	}
+	}*/
 	
+	return false;
 }
 
