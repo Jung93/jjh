@@ -12,6 +12,6 @@ private:
 	shared_ptr<Collider> _myCircle;
 	shared_ptr<Collider> _myMovingCircle;
 
-
+	shared_ptr<Collider> _myBox;
 };
 
