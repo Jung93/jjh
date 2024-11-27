@@ -34,6 +34,7 @@ using namespace std;
 #include "Contents/Objects/Collider.h"
 #include "Contents/Objects/CircleCollider.h"
 #include "Contents/Objects/BoxCollider.h"
+#include "Contents/GameObject/Cannon.h"
 
 //Scene
 #include "Scenes/Scene.h"

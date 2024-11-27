@@ -132,6 +132,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\CannonScene.h" />
+    <ClInclude Include="Contents\GameObject\Cannon.h" />
     <ClInclude Include="Contents\Objects\Collider.h" />
     <ClInclude Include="Scenes\CollisionScene.h" />
     <ClInclude Include="Contents\Objects\BoxCollider.h" />
@@ -148,6 +150,8 @@
     <ClInclude Include="WindowAPI_jjh.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scenes\CannonScene.cpp" />
+    <ClCompile Include="Contents\GameObject\Cannon.cpp" />
     <ClCompile Include="Contents\Objects\Collider.cpp" />
     <ClCompile Include="Scenes\CollisionScene.cpp" />
     <ClCompile Include="Contents\Objects\BoxCollider.cpp">
