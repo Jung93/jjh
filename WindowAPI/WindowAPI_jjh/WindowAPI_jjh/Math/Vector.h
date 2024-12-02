@@ -97,6 +97,23 @@ public:
         y /= length;
     }
 
+    Vector& operator=(const Vector& other)
+    {
+        x = other.x;
+        y = other.y;
+        return *this;
+    }
+
+    Vector& operator+=(const Vector& other)
+    {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+
+
+
+
 public:
     float x;
     float y;
