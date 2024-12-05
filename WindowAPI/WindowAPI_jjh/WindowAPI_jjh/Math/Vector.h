@@ -111,8 +111,22 @@ public:
         return *this;
     }
 
+    float Angle(/*const Vector& other*/) const
+    {
+        //Vector normalA = this->NormalVector();
+        //Vector normalB = other.NormalVector();
+        //return acos(normalA.Dot(normalB));
 
+        return atan2(y, x);
 
+    }
+
+    float Angle(const Vector& other) const
+    {
+
+        return Angle() - other.Angle();;
+
+    }
 
 public:
     float x;

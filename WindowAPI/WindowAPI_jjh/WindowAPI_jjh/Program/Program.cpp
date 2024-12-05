@@ -4,15 +4,17 @@
 #include "Scenes/PaintScene.h"
 #include "Scenes/CollisionScene.h"
 #include "Scenes/CannonScene.h"
+#include "Scenes/LineScene.h"
 
 Program::Program()
 {
     _sceneTable["PaintScene"] = make_shared<PaintScene>();
     _sceneTable["CollisionScene"] = make_shared<CollisionScene>();
     _sceneTable["CannonScene"] = make_shared<CannonScene>();
+    _sceneTable["LineScene"] = make_shared<LineScene>();
 
     //_curScene = "PaintScene";
-    _curScene = "CannonScene";
+    _curScene = "LineScene";
 }
 
 Program::~Program()

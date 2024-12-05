@@ -16,6 +16,17 @@ public:
 	void Ready() { _barrel->SetCannon(shared_from_this()); }
 	void Fire();
 
+	bool IsFireReady() 
+	{ 
+		_fireTime += 0.02f;
+		if(_fireTime > _delayTime)
+		{
+			_fireTime = 0.0f;
+			return true;
+		}
+		return false;
+	};
+
 private:
 	// 입력으로 좌우로 움직이게 만드는 함수
 	void InputMove();
@@ -25,6 +36,11 @@ private:
 private:
 	shared_ptr<CircleCollider> _body;
 	shared_ptr<class Barrel> _barrel;
-	shared_ptr<class Ball> _ball;
+
+	int _poolCount = 80;
+	vector<shared_ptr<class Ball>> _ballPool;
+	float _delayTime = 0.1f;
+	float _fireTime = 0.0f;
+
 };
 

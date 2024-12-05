@@ -1,52 +1,73 @@
 #include "framework.h"
 #include "Barrel.h"
-
+#include "Ball.h"
 #include "Cannon.h"
 
 Cannon::Cannon()
 {
 	_body = make_shared<CircleCollider>(Vector(350, 350), 50);
-	//_barrel = make_shared<Line>(_body->Center(), _body->Center() + Vector(150, 0));
 	_barrel = make_shared<Barrel>();
-	_ball = make_shared<Ball>();
 
+	for(int i = 0; i < _poolCount; i++)
+	{
+		auto ball = make_shared<Ball>();
+		_ballPool.push_back(ball);
+	}
 }
 
 Cannon::~Cannon()
 {
-
 }
 
 void Cannon::Update()
 {
-	InputMove();
-
-	InputBarrelRotation();
-	Fire();
-
 	_body->Update();
 	_barrel->Update();
-	_ball->Update();
+	srand(time(nullptr));
+
+	for (auto ball : _ballPool)
+	{
+		ball->Update();
+	}
+
+	InputMove();
+	InputBarrelRotation();
+
+	if(IsFireReady())
+		Fire();
+
+
 }
 
 void Cannon::Render(HDC hdc)
 {
 	_barrel->Render(hdc);
 	_body->Render(hdc);
-	_ball->Render(hdc);
+	for (auto ball : _ballPool)
+	{
+		ball->Render(hdc);
+	}
 }
 
 void Cannon::Fire()
 {
 	if (GetAsyncKeyState(VK_SPACE) & 0x8001)
 	{
-		Vector dir = mousePos - _body->Center();
-		dir.Normalize();
 
+		auto iter = find_if(_ballPool.begin(), _ballPool.end(), [](const shared_ptr<Ball>& ball)->bool 
+			{
+				if (ball->IsActive() == false)
+					return true;
+				return false;
+			});
 
-		_ball->SetCenter(_barrel->GetEnd() - dir * _ball->GetRadius());
-		_ball->SetDirection(dir);
-
+		if (iter == _ballPool.end()) return;
+		//if (_delayTime <= 0.0f)
+		//{
+			(*iter)->Fire(_barrel->GetEnd(), _barrel->GetDirection());
+			//_delayTime = 40.0f;
+		//}
+		//_delayTime -= 1.0f;
 	}
 }
 

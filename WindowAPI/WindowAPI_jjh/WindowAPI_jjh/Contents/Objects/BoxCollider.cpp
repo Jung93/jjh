@@ -9,6 +9,7 @@ BoxCollider::BoxCollider(Vector dot1, Vector dot2)
 	_center = dot1;
 	_colors[0] = CreatePen(3, 3, RED);
 	_colors[1] = CreatePen(3, 3, GREEN);
+	_colors[2] = CreatePen(3, 3, SKY);
 
 	SetGreen();
 }
